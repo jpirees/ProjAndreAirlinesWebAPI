@@ -9,9 +9,9 @@ namespace ProjAndreAirlinesWebAPI.Services
 {
     public class ViaCepService
     {
-        public static async Task<Address> SearchAddressByCep(string cep)
+        public static async Task<Address> SearchAddressByZipCode(string zipCode)
         {
-            cep = cep.Replace("-", "").Replace(".", "");
+            zipCode = zipCode.Replace("-", "").Replace(".", "");
 
             using HttpClient httpClient = new();
 
@@ -22,7 +22,7 @@ namespace ProjAndreAirlinesWebAPI.Services
                 httpClient.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = await httpClient.GetAsync($"ws/{cep}/json/");
+                HttpResponseMessage response = await httpClient.GetAsync($"ws/{zipCode}/json/");
                 response.EnsureSuccessStatusCode();
                 var json = await response.Content.ReadAsStringAsync();
 

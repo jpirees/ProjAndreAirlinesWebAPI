@@ -16,7 +16,7 @@ namespace ProjAndreAirlinesWebAPI.Model
         public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
 
         [JsonProperty("cep")]
-        public string Cep { get; set; }
+        public string ZipCode { get; set; }
 
         [JsonProperty("logradouro")]
         public string Street { get; set; }

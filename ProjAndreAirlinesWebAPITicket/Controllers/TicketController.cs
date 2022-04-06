@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjAndreAirlinesWebAPI.Model;
+using ProjAndreAirlinesWebAPI.Utils;
 using ProjAndreAirlinesWebAPITicket.Services;
 
 namespace ProjAndreAirlinesWebAPITicket.Controllers
@@ -28,7 +29,7 @@ namespace ProjAndreAirlinesWebAPITicket.Controllers
             var ticket = _ticketService.Get(id);
 
             if (ticket == null)
-                return NotFound("Reserva não encontrada.");
+                return NotFound(new ResponseAPI(404, "Reserva não encontrada."));
 
             return ticket;
         }
@@ -44,17 +45,17 @@ namespace ProjAndreAirlinesWebAPITicket.Controllers
             var flight = await _flightServiceAPI.GetFlightAsync(ticket.Flight);
 
             if (flight == null)
-                return NotFound("Vôo não encontrado.");
+                return NotFound(new ResponseAPI(404, "Vôo não encontrado."));
 
             var basePrice = await _basePriceServiceAPI.GetBasePriceAsync(ticket.Flight);
 
             if (basePrice == null)
-                return NotFound("Preço base não encontrado.");
-            
+                return NotFound(new ResponseAPI(404, "Preço base não encontrado."));
+
             var ticketClass = await _ticketClassServiceAPI.GetTicketClassAsync(ticket.TicketClass.Description);
 
             if (ticketClass == null)
-                return NotFound("Preço base não encontrado.");
+                return NotFound(new ResponseAPI(404, "Preço da classe não encontrado."));
 
             ticket.Flight = flight;
             ticket.BasePrice = basePrice;
@@ -73,7 +74,7 @@ namespace ProjAndreAirlinesWebAPITicket.Controllers
             var ticket = _ticketService.Get(id);
 
             if (ticket == null)
-                return NotFound("Reserva não encontrada.");
+                return NotFound(new ResponseAPI(404, "Reserva não encontrada."));
 
             _ticketService.Update(id, ticketIn);
 
@@ -86,7 +87,7 @@ namespace ProjAndreAirlinesWebAPITicket.Controllers
             var ticket = _ticketService.Get(id);
 
             if (ticket == null)
-                return NotFound("Reserva não encontrada.");
+                return NotFound(new ResponseAPI(404, "Reserva não encontrada."));
 
             _ticketService.Remove(id);
 

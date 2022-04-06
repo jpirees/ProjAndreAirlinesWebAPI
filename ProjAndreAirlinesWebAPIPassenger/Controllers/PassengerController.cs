@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjAndreAirlinesWebAPI.Model;
 using ProjAndreAirlinesWebAPI.Services;
+using ProjAndreAirlinesWebAPI.Utils;
 using ProjAndreAirlinesWebAPIPassenger.Services;
 
 namespace ProjAndreAirlinesWebAPIPassenger.Controllers
@@ -29,7 +30,7 @@ namespace ProjAndreAirlinesWebAPIPassenger.Controllers
             var passenger = _passengerService.Get(id);
 
             if (passenger == null)
-                return NotFound("Passageiro não encontrado.");
+                return NotFound(new ResponseAPI(404, "Passageiro não encontrado."));
 
             return passenger;
         }
@@ -40,12 +41,12 @@ namespace ProjAndreAirlinesWebAPIPassenger.Controllers
             var passenger = _passengerService.GetByCpf(cpf);
 
             if (passenger == null)
-                return NotFound("Passageiro não encontrado.");
+                return NotFound(new ResponseAPI(404, "Passageiro não encontrado."));
 
             return passenger;
         }
 
-        [HttpPost] //CreateAsync
+        [HttpPost]
         public async Task<ActionResult<Passenger>> Create(Passenger passenger)
         {
             passenger.Cpf = passenger.Cpf.Replace(".", "").Replace("-", "");
@@ -53,18 +54,18 @@ namespace ProjAndreAirlinesWebAPIPassenger.Controllers
             var cpfIsValid = PassengerCpfIsValid(passenger.Cpf);
 
             if (!cpfIsValid)
-                return BadRequest("CPF inválido.");
+                return BadRequest(new ResponseAPI(400, "CPF Inválido"));
 
             var passengerExist = _passengerService.GetByCpf(passenger.Cpf);
 
             if (passengerExist != null)
-                return Conflict("Usuário já cadastrado.");
+                return BadRequest(new ResponseAPI(400, "Passageiro já cadastrado."));
 
-            var address = await ViaCepService.SearchAddressByCep(passenger.Address.Cep);
+            var address = await ViaCepService.SearchAddressByZipCode(passenger.Address.ZipCode);
 
             if (address != null)
             {
-                address.Cep = address.Cep.Replace("-", "");
+                address.ZipCode = address.ZipCode.Replace("-", "");
                 address.Number = passenger.Address.Number;
                 passenger.Address = address;
             }
@@ -80,7 +81,7 @@ namespace ProjAndreAirlinesWebAPIPassenger.Controllers
             var passenger = _passengerService.Get(id);
 
             if (passenger == null)
-                return NotFound("Passageiro não encontrado.");
+                return NotFound(new ResponseAPI(404, "Passageiro não encontrado."));
 
             _passengerService.Update(id, passengerIn);
 
@@ -93,7 +94,7 @@ namespace ProjAndreAirlinesWebAPIPassenger.Controllers
             var passenger = _passengerService.Get(id);
 
             if (passenger == null)
-                return NotFound("Passageiro não encontrado.");
+                return NotFound(new ResponseAPI(404, "Passageiro não encontrado."));
 
             _passengerService.Remove(id);
 

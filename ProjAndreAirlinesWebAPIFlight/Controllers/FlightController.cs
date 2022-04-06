@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ProjAndreAirlinesWebAPI.Model;
+using ProjAndreAirlinesWebAPI.Utils;
 using ProjAndreAirlinesWebAPIFlight.Services;
 
 namespace ProjAndreAirlinesWebAPIFlight.Controllers
@@ -32,7 +33,7 @@ namespace ProjAndreAirlinesWebAPIFlight.Controllers
             var flight = _flightService.Get(id);
 
             if (flight == null)
-                return NotFound("Vôo não programado.");
+                return NotFound(new ResponseAPI(404, "Vôo não programado."));
 
             return flight;
         }
@@ -43,7 +44,7 @@ namespace ProjAndreAirlinesWebAPIFlight.Controllers
             var flight = _flightService.GetFlight(iataCodeOrigin, iataCodeDestination, boardingTime);
 
             if (flight == null)
-                return NotFound("Vôo não programado.");
+                return NotFound(new ResponseAPI(404, "Vôo não programado."));
 
             return flight;
         }
@@ -59,7 +60,7 @@ namespace ProjAndreAirlinesWebAPIFlight.Controllers
                 var aircraft = await _aircraftServiceAPI.GetAircraftAsync(flight.Aircraft.RegistrationCode);
 
                 if (aircraft == null)
-                    return NotFound("Aeronave não encontrada");
+                    return NotFound(new ResponseAPI(404, "Aeronave não encontrada."));
 
                 flight.Aircraft = aircraft;
             }
@@ -73,7 +74,7 @@ namespace ProjAndreAirlinesWebAPIFlight.Controllers
                 var airport = await _airportServiceAPI.GetAirportAsync(flight.Origin.IataCode);
 
                 if (airport == null)
-                    return NotFound("Aeroporto não econtrado");
+                    return NotFound(new ResponseAPI(404, "Aeroporto de origem não encontrado."));
 
                 flight.Origin = airport;
             }
@@ -87,7 +88,7 @@ namespace ProjAndreAirlinesWebAPIFlight.Controllers
                 var airport = await _airportServiceAPI.GetAirportAsync(flight.Destination.IataCode);
 
                 if (airport == null)
-                    return NotFound("Aeroporto não econtrado");
+                    return NotFound(new ResponseAPI(404, "Aeroporto de destino não encontrado."));
 
                 flight.Destination = airport;
             }
@@ -107,7 +108,7 @@ namespace ProjAndreAirlinesWebAPIFlight.Controllers
             var flight = _flightService.Get(id);
 
             if (flight == null)
-                return NotFound("Vôo não programado.");
+                return NotFound(new ResponseAPI(404, "Vôo não programado."));
 
             _flightService.Update(id, flightIn);
 
@@ -120,7 +121,7 @@ namespace ProjAndreAirlinesWebAPIFlight.Controllers
             var flight = _flightService.Get(id);
 
             if (flight == null)
-                return NotFound("Vôo não programado.");
+                return NotFound(new ResponseAPI(404, "Vôo não programado."));
 
             _flightService.Remove(id);
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjAndreAirlinesWebAPI.Model;
 using ProjAndreAirlinesWebAPI.Services;
+using ProjAndreAirlinesWebAPI.Utils;
 using ProjAndreAirlinesWebAPIAirport.Services;
 
 namespace ProjAndreAirlinesWebAPIAirport.Controllers
@@ -29,7 +30,7 @@ namespace ProjAndreAirlinesWebAPIAirport.Controllers
             var airport = _airportService.Get(id);
 
             if (airport == null)
-                return NotFound("Aeroporto não encontrado.");
+                return NotFound(new ResponseAPI(404, "Aeroporto não encontrado."));
 
             return airport;
         }
@@ -40,7 +41,7 @@ namespace ProjAndreAirlinesWebAPIAirport.Controllers
             var airport = _airportService.GetByIataCode(iataCode);
 
             if (airport == null)
-                return NotFound("Aeroporto não encontrado.");
+                return NotFound(new ResponseAPI(404, "Aeroporto não encontrado."));
 
             return airport;
         }
@@ -49,13 +50,13 @@ namespace ProjAndreAirlinesWebAPIAirport.Controllers
         public async Task<ActionResult<Airport>> Create(Airport airport)
         {
             if (_airportService.GetByIataCode(airport.IataCode) != null)
-                return Conflict("Aeroporto já cadastrado.");
+                return BadRequest(new ResponseAPI(400, "Aeroporto já cadastrado."));
 
-            var address = await ViaCepService.SearchAddressByCep(airport.Address.Cep);
+            var address = await ViaCepService.SearchAddressByZipCode(airport.Address.ZipCode);
 
             if (address != null)
             {
-                address.Cep = address.Cep.Replace("-", "");
+                address.ZipCode = address.ZipCode.Replace("-", "");
                 address.Number = airport.Address.Number;
                 airport.Address = address;
             }
@@ -71,7 +72,7 @@ namespace ProjAndreAirlinesWebAPIAirport.Controllers
             var airport = _airportService.Get(id);
 
             if (airport == null)
-                return NotFound("Aeroporto não encontrado.");
+                return NotFound(new ResponseAPI(404, "Aeroporto não encontrado."));
 
             _airportService.Update(id, airportIn);
 
@@ -84,7 +85,7 @@ namespace ProjAndreAirlinesWebAPIAirport.Controllers
             var airport = _airportService.Get(id);
 
             if (airport == null)
-                return NotFound("Aeroporto não encontrado.");
+                return NotFound(new ResponseAPI(404, "Aeroporto não encontrado."));
 
             _airportService.Remove(id);
 

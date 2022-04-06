@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjAndreAirlinesWebAPI.Model;
+using ProjAndreAirlinesWebAPI.Utils;
 using ProjAndreAirlinesWebAPIBasePrice.Services;
 
 namespace ProjAndreAirlinesWebAPIBasePrice.Controllers
@@ -28,7 +29,7 @@ namespace ProjAndreAirlinesWebAPIBasePrice.Controllers
             var basePrice = _basePriceService.Get(id);
 
             if (basePrice == null)
-                return NotFound("Preço base não cadastrado.");
+                return NotFound(new ResponseAPI(404, "Preço base não cadastrado."));
 
             return basePrice;
         }
@@ -36,10 +37,10 @@ namespace ProjAndreAirlinesWebAPIBasePrice.Controllers
         [HttpGet("{iataCodeOrigin}/{iataCodeDestination}")]
         public ActionResult<BasePrice> GetByAirports(string iataCodeOrigin, string iataCodeDestination)
         {
-            var  basePrice = _basePriceService.GetByAirports(iataCodeOrigin, iataCodeDestination);
+            var basePrice = _basePriceService.GetByAirports(iataCodeOrigin, iataCodeDestination);
 
             if (basePrice == null)
-                return NotFound("Preço base não cadastrado.");
+                return NotFound(new ResponseAPI(404, "Preço base não cadastrado."));
 
             return basePrice;
         }
@@ -50,17 +51,17 @@ namespace ProjAndreAirlinesWebAPIBasePrice.Controllers
             var airportOrigin = await _basePriceService.GetAiportByIataCode(basePrice.Origin.IataCode);
 
             if (airportOrigin == null)
-                return NotFound("Aeroporto de origem não encontrado.");
+                return NotFound(new ResponseAPI(404, "Aeroporto de origem não encontrado."));
 
 
             var airportDestination = await _basePriceService.GetAiportByIataCode(basePrice.Origin.IataCode);
 
             if (airportDestination == null)
-                return NotFound("Aeroporto de destino não encontrado.");
+                return NotFound(new ResponseAPI(404, "Aeroporto de destino não encotrado."));
 
 
             if (airportOrigin.IataCode.Equals(airportDestination.IataCode))
-                return BadRequest("Aeroporto destino não pode ser o mesmo de origem.");
+                return BadRequest(new ResponseAPI(400, "Aeroporto de destino não pode ser o mesmo de origem."));
             else
             {
                 basePrice.Origin = airportOrigin;
@@ -78,7 +79,7 @@ namespace ProjAndreAirlinesWebAPIBasePrice.Controllers
             var basePrice = _basePriceService.Get(id);
 
             if (basePrice == null)
-                return NotFound();
+                return NotFound(new ResponseAPI(404, "Preço base não cadastrado."));
 
             _basePriceService.Update(id, basePriceIn);
 
@@ -91,7 +92,7 @@ namespace ProjAndreAirlinesWebAPIBasePrice.Controllers
             var basePrice = _basePriceService.Get(id);
 
             if (basePrice == null)
-                return NotFound();
+                return NotFound(new ResponseAPI(404, "Preço base não cadastrado."));
 
             _basePriceService.Remove(id);
 

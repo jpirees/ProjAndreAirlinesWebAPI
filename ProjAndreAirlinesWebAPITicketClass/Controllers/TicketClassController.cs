@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjAndreAirlinesWebAPI.Model;
+using ProjAndreAirlinesWebAPI.Utils;
 using ProjAndreAirlinesWebAPITicketClass.Services;
 
 namespace ProjAndreAirlinesWebAPITicketClass.Controllers
@@ -27,7 +28,7 @@ namespace ProjAndreAirlinesWebAPITicketClass.Controllers
             var ticketClass = _ticketClassService.Get(id);
 
             if (ticketClass == null)
-                return NotFound("Classe não encontrada.");
+                return NotFound(new ResponseAPI(404, "Classe não encontrada."));
 
             return ticketClass;
         }
@@ -38,7 +39,7 @@ namespace ProjAndreAirlinesWebAPITicketClass.Controllers
             var ticketClass = _ticketClassService.GetByDescription(description);
 
             if (ticketClass == null)
-                return NotFound("Classe não encontrada.");
+                return NotFound(new ResponseAPI(404, "Classe não encontrada."));
 
             return ticketClass;
         }
@@ -49,7 +50,7 @@ namespace ProjAndreAirlinesWebAPITicketClass.Controllers
             var ticketClassExist = _ticketClassService.GetByDescription(ticketClass.Description);
 
             if (ticketClassExist != null)
-                return BadRequest("Classe já cadastrada.");
+                return BadRequest(new ResponseAPI(400, "Classe já cadastrada."));
 
             _ticketClassService.Create(ticketClass);
 
@@ -62,7 +63,7 @@ namespace ProjAndreAirlinesWebAPITicketClass.Controllers
             var ticketClass = _ticketClassService.Get(id);
 
             if (ticketClass == null)
-                return NotFound("Classe não encontrada.");
+                return NotFound(new ResponseAPI(404, "Classe não encontrada."));
 
             _ticketClassService.Update(id, ticketClassIn);
 
@@ -75,7 +76,7 @@ namespace ProjAndreAirlinesWebAPITicketClass.Controllers
             var ticketClass = _ticketClassService.Get(id);
 
             if (ticketClass == null)
-                return NotFound("Classe não encontrada.");
+                return NotFound(new ResponseAPI(404, "Classe não encontrada."));
 
             _ticketClassService.Remove(id);
 

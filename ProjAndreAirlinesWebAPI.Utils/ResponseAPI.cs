@@ -20,6 +20,10 @@ namespace ProjAndreAirlinesWebAPI.Utils
             Message = message ?? GetDefaultMessageForStatusCode(statusCode);
         }
 
+        public ResponseAPI()
+        {
+        }
+
         private static string GetDefaultMessageForStatusCode(int statusCode)
         {
             switch (statusCode)

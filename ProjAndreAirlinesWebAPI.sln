@@ -23,7 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjAndreAirlinesWebAPIBase
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjAndreAirlinesWebAPITicket", "ProjAndreAirlinesWebAPITicket\ProjAndreAirlinesWebAPITicket.csproj", "{D71CCD94-CA4B-4E7E-AF2D-17995CE1AB8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjAndreAirlinesWebAPI.Services", "ProjAndreAirlinesWebAPI.Services\ProjAndreAirlinesWebAPI.Services.csproj", "{5877C39C-9152-4A66-A1E6-35056B7334B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjAndreAirlinesWebAPI.Services", "ProjAndreAirlinesWebAPI.Services\ProjAndreAirlinesWebAPI.Services.csproj", "{5877C39C-9152-4A66-A1E6-35056B7334B7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjAndreAirlinesWebAPIEF", "ProjAndreAirlinesWebAPIEF\ProjAndreAirlinesWebAPIEF.csproj", "{2ED38DAF-C08D-41A7-AB4C-617C752AD715}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjAndreAirlinesWebAPIDapper", "ProjAndreAirlinesWebAPIDapper\ProjAndreAirlinesWebAPIDapper.csproj", "{49826624-2121-44BF-ADF1-B78BDA71E391}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +79,14 @@ Global
 		{5877C39C-9152-4A66-A1E6-35056B7334B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5877C39C-9152-4A66-A1E6-35056B7334B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5877C39C-9152-4A66-A1E6-35056B7334B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ED38DAF-C08D-41A7-AB4C-617C752AD715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ED38DAF-C08D-41A7-AB4C-617C752AD715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ED38DAF-C08D-41A7-AB4C-617C752AD715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ED38DAF-C08D-41A7-AB4C-617C752AD715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49826624-2121-44BF-ADF1-B78BDA71E391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49826624-2121-44BF-ADF1-B78BDA71E391}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49826624-2121-44BF-ADF1-B78BDA71E391}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49826624-2121-44BF-ADF1-B78BDA71E391}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

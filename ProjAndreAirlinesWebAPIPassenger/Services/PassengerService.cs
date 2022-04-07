@@ -22,8 +22,11 @@ namespace ProjAndreAirlinesWebAPIPassenger.Services
         public Passenger Get(string id) =>
             _passengers.Find<Passenger>(passenger => passenger.Id == id).FirstOrDefault();
 
-        public Passenger GetByCpf(string cpf) =>
+        public Passenger GetByDocument(string cpf) =>
             _passengers.Find<Passenger>(passenger => passenger.Cpf == cpf).FirstOrDefault();
+
+        public Passenger GetByPassaport(string passaportNumber) =>
+            _passengers.Find<Passenger>(passenger => passenger.PassaportNumber == passaportNumber).FirstOrDefault();
 
         public Passenger Create(Passenger passengerIn)
         {

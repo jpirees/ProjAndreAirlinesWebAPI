@@ -14,7 +14,6 @@ namespace ProjAndreAirlinesWebAPI.Model.DTO
         public static readonly string GETALL = "SELECT Code, City, Country, Continent FROM Airport";
         public static readonly string GET = "SELECT Code, City, Country, Continent FROM Airport WHERE Code = @Code";
 
-
         [Key]
         [JsonProperty("Code")]
         public string Code { get; set; }
@@ -29,5 +28,13 @@ namespace ProjAndreAirlinesWebAPI.Model.DTO
         public string Continent { get; set; }
 
         public Airport() { }
+
+        public Airport(string code, string city, string country, string continent)
+        {
+            Code = code;
+            City = city;
+            Country = country;
+            Continent = continent;
+        }
     }
 }

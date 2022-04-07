@@ -24,8 +24,6 @@ namespace ProjAndreAirlinesWebAPITicket.Services
 
         public Ticket Create(Ticket ticketIn)
         {
-
-
             _tickets.InsertOne(ticketIn);
             
             return ticketIn;

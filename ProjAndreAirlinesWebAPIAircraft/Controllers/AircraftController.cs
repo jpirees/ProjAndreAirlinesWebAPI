@@ -47,6 +47,7 @@ namespace ProjAndreAirlinesWebAPIAircraft.Controllers
         [HttpPost]
         public ActionResult<Aircraft> Create(Aircraft aircraft)
         {
+
             var aircraftExists = _aircraftService.GetByRegistrationCode(aircraft.RegistrationCode);
 
             if (aircraftExists != null)

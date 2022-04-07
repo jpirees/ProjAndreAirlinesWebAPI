@@ -13,7 +13,7 @@ namespace ProjAndreAirlinesWebAPI.Services
         {
             zipCode = zipCode.Replace("-", "").Replace(".", "");
 
-            using HttpClient httpClient = new();
+            HttpClient httpClient = new();
 
             try
             {

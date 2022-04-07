@@ -38,7 +38,7 @@ namespace ProjAndreAirlinesWebAPIPassenger.Controllers
         [HttpGet("{cpf}")]
         public ActionResult<Passenger> GetByCpf(string cpf)
         {
-            var passenger = _passengerService.GetByCpf(cpf);
+            var passenger = _passengerService.GetByDocument(cpf);
 
             if (passenger == null)
                 return NotFound(new ResponseAPI(404, "Passageiro não encontrado."));
@@ -56,10 +56,15 @@ namespace ProjAndreAirlinesWebAPIPassenger.Controllers
             if (!cpfIsValid)
                 return BadRequest(new ResponseAPI(400, "CPF Inválido"));
 
-            var passengerExist = _passengerService.GetByCpf(passenger.Cpf);
+            var passengerExist = _passengerService.GetByDocument(passenger.Cpf);
 
             if (passengerExist != null)
                 return BadRequest(new ResponseAPI(400, "Passageiro já cadastrado."));
+
+            var passaportNumberExist = _passengerService.GetByPassaport(passenger.PassaportNumber);
+
+            if (passaportNumberExist != null)
+                return BadRequest(new ResponseAPI(400, "Passageiro já cadastrado com esse número de passaporte."));
 
             var address = await ViaCepService.SearchAddressByZipCode(passenger.Address.ZipCode);
 

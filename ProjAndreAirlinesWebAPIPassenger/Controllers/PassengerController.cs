@@ -36,9 +36,20 @@ namespace ProjAndreAirlinesWebAPIPassenger.Controllers
         }
 
         [HttpGet("{cpf}")]
-        public ActionResult<Passenger> GetByCpf(string cpf)
+        public ActionResult<Passenger> GetByDocument(string cpf)
         {
             var passenger = _passengerService.GetByDocument(cpf);
+
+            if (passenger == null)
+                return NotFound(new ResponseAPI(404, "Passageiro não encontrado."));
+
+            return passenger;
+        }
+
+        [HttpGet("Passaport/{passaportNumber}")]
+        public ActionResult<Passenger> GetByPassaport(string passaportNumber)
+        {
+            var passenger = _passengerService.GetByPassaport(passaportNumber);
 
             if (passenger == null)
                 return NotFound(new ResponseAPI(404, "Passageiro não encontrado."));

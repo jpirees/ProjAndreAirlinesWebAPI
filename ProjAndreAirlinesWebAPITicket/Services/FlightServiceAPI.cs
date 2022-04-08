@@ -14,7 +14,7 @@ namespace ProjAndreAirlinesWebAPITicket.Services
 
             try
             {
-                var response = await httpCliente.GetAsync($"https://localhost:44344/api/Flight/ico={flightIn.Origin.IataCode}&icd={flightIn.Destination.IataCode}&bt={flightIn.BoardingTime}");
+                var response = await httpCliente.GetAsync($"https://localhost:44344/api/Flight/{flightIn.Id}"); // /api/Flight/ico={iataCodeOrigin}&icd={iataCodeDestination}&bt={boardingTime}
                 response.EnsureSuccessStatusCode();
                 var json = await response.Content.ReadAsStringAsync();
 

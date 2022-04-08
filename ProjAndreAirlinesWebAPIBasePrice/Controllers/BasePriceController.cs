@@ -54,7 +54,7 @@ namespace ProjAndreAirlinesWebAPIBasePrice.Controllers
                 return NotFound(new ResponseAPI(404, "Aeroporto de origem não encontrado."));
 
 
-            var airportDestination = await _basePriceService.GetAiportByIataCode(basePrice.Origin.IataCode);
+            var airportDestination = await _basePriceService.GetAiportByIataCode(basePrice.Destination.IataCode);
 
             if (airportDestination == null)
                 return NotFound(new ResponseAPI(404, "Aeroporto de destino não encotrado."));
